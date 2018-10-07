@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour{
     bool onGroundSentinel;
     bool jumpingSentinel;
     float timeJumping;
+    float timeBouncing;
     public float impulse;
     public float retard;
     public float retardOnAir;
@@ -14,12 +15,17 @@ public class playerController : MonoBehaviour{
     public float minJump;
     public float maxJump;
     public float bounceForce;
+    public float maxBouncing;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             onGroundSentinel = true;
+        }
+        else if (collision.gameObject.CompareTag("Bouncer"))
+        {
+            timeBouncing = Time.time;
         }
     }
 
@@ -33,6 +39,7 @@ public class playerController : MonoBehaviour{
 
     private void Awake(){
         timeJumping = -minJump;
+        timeBouncing = -maxBouncing;
         rb = this.GetComponent<Rigidbody2D>();
         onGroundSentinel = false;
         jumpingSentinel = false;
@@ -53,19 +60,22 @@ public class playerController : MonoBehaviour{
         {
             jumpingSentinel = false;
         }
-        if (onGroundSentinel)
+        if (timeBouncing + maxBouncing < Time.time)
         {
-            rb.AddForce(vxMove * impulse);
-            rb.AddForce(Vector2.right * rb.GetPointVelocity(this.transform.position) * -retard);
-        }
-        else
-        {
-            rb.AddForce(vxMove * impulse * retardOnAir);
-            rb.AddForce(Vector2.right * rb.GetPointVelocity(this.transform.position) * -retard * retardOnAir);
-        }
-        if ((jumpingSentinel || timeJumping + minJump > Time.time) && !(timeJumping + maxJump < Time.time))
-        {
-            rb.AddForce(Vector2.up * jumpImpulse);
+            if (onGroundSentinel)
+            {
+                rb.AddForce(vxMove * impulse);
+                rb.AddForce(Vector2.right * rb.GetPointVelocity(this.transform.position) * -retard);
+            }
+            else
+            {
+                rb.AddForce(vxMove * impulse * retardOnAir);
+                rb.AddForce(Vector2.right * rb.GetPointVelocity(this.transform.position) * -retard * retardOnAir);
+            }
+            if ((jumpingSentinel || timeJumping + minJump > Time.time) && !(timeJumping + maxJump < Time.time))
+            {
+                rb.AddForce(Vector2.up * jumpImpulse);
+            }
         }
     }
 }
