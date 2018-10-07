@@ -23,6 +23,14 @@ public class playerController : MonoBehaviour{
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            onGroundSentinel = false;
+        }
+    }
+
     private void Awake(){
         timeJumping = -minJump;
         rb = this.GetComponent<Rigidbody2D>();
