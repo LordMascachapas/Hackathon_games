@@ -8,6 +8,7 @@ public class playerController : MonoBehaviour{
     bool jumpingSentinel;
     float timeJumping;
     float timeBouncing;
+    public SpriteRenderer sprite;
     public float impulse;
     public float retard;
     public float retardOnAir;
@@ -16,6 +17,12 @@ public class playerController : MonoBehaviour{
     public float maxJump;
     public float bounceForce;
     public float maxBouncing;
+
+    public void ChangeGravity()
+    {
+        rb.gravityScale = -rb.gravityScale;
+        sprite.flipY = !sprite.flipY;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -74,7 +81,7 @@ public class playerController : MonoBehaviour{
             }
             if ((jumpingSentinel || timeJumping + minJump > Time.time) && !(timeJumping + maxJump < Time.time))
             {
-                rb.AddForce(Vector2.up * jumpImpulse);
+                rb.AddForce(Vector2.up * jumpImpulse * rb.gravityScale);
             }
         }
     }
