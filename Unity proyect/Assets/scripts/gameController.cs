@@ -7,12 +7,21 @@ public class gameController : MonoBehaviour {
     public GameObject Roof;
     public GameObject Ground;
     public GameObject Platforms;
+    public GameObject CoinPrefab;
+    public float XMaxCoinSpawn;
+    public float XMinCoinSpawn;
+    public float YMaxCoinSpawn;
+    public float YMinCoinSpawn;
+    public float timeSpawnForCoin;
     bool invGravity;
+    float timeBetweenSpawn;
 
     private void Start()
     {
         invGravity = false;
+        timeBetweenSpawn = -timeSpawnForCoin;
     }
+
 
     public void ChangeGravity()
     {
@@ -37,6 +46,21 @@ public class gameController : MonoBehaviour {
                 Platforms.transform.GetChild(i).SetPositionAndRotation(Platforms.transform.GetChild(i).position, Quaternion.Euler(0, 0, 0));
                 Platforms.transform.GetChild(i).Find("Sprites").SetPositionAndRotation(Platforms.transform.GetChild(i).Find("Sprites").position, Quaternion.Euler(0, 0, 0));
             }
+        }
+    }
+
+    public void SpawnCoin()
+    {
+        Vector2 spawnPosition = new Vector2(Random.Range(XMinCoinSpawn, XMaxCoinSpawn), Random.Range(YMinCoinSpawn, YMaxCoinSpawn));
+        Instantiate(CoinPrefab, spawnPosition, Quaternion.Euler(0, 0, 0));
+        timeBetweenSpawn = Time.time;
+    }
+
+    private void Update()
+    {
+        if (GameObject.Find("GravityCoin(Clone)") == null && timeBetweenSpawn + timeSpawnForCoin < Time.time)
+        {
+            SpawnCoin();
         }
     }
 }
