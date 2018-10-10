@@ -502,7 +502,7 @@ MonoBehaviour:
   XMinCoinSpawn: -6.5
   YMaxCoinSpawn: 3.7
   YMinCoinSpawn: -2.5
-  timeSpawnForCoin: 3
+  timeSpawnForCoin: 10
 --- !u!114 &120202943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1042,9 +1042,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 120202943}
-        m_MethodName: EnableCanvas
-        m_Mode: 1
+      - m_Target: {fileID: 120202942}
+        m_MethodName: PauseGame
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

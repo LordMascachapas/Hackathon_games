@@ -18,11 +18,8 @@ public class menuController : MonoBehaviour {
         Application.Quit();
     }
 
-    public void EnableCanvas()
+    public void EnableCanvas(bool value)
     {
-        if (Canvas.activeSelf == true)
-            Canvas.SetActive(false);
-        else
-            Canvas.SetActive(true);
+        Canvas.SetActive(value);
     }
 }

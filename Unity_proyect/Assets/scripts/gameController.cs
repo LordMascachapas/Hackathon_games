@@ -16,13 +16,8 @@ public class gameController : MonoBehaviour {
     public float timeSpawnForCoin;
     bool invGravity;
     float timeBetweenSpawn;
-
-    private void Start()
-    {
-        invGravity = false;
-        timeBetweenSpawn = -timeSpawnForCoin;
-    }
-
+    bool onPause;
+    float timeOnPause;
 
     public void ChangeGravity()
     {
@@ -57,16 +52,42 @@ public class gameController : MonoBehaviour {
         timeBetweenSpawn = Time.time;
     }
 
+    public void PauseGame(bool value)
+    {
+        if (value != onPause)
+        {
+            Menu.EnableCanvas(value);
+            Player.SetFreeze(value);
+            if (onPause)
+                timeOnPause = Time.time;
+            else
+            {
+                timeOnPause = Time.time - timeOnPause;
+                timeBetweenSpawn += timeOnPause;
+            }
+            onPause = value;
+        }
+    }
+
+    private void Awake()
+    {
+        onPause = false;
+        invGravity = false;
+        timeBetweenSpawn = -timeSpawnForCoin;
+    }
+
     private void Update()
     {
-        if (GameObject.Find("GravityCoin(Clone)") == null && timeBetweenSpawn + timeSpawnForCoin < Time.time)
+        if (!onPause)
         {
-            SpawnCoin();
+            if (GameObject.Find("GravityCoin(Clone)") == null && timeBetweenSpawn + timeSpawnForCoin < Time.time)
+            {
+                SpawnCoin();
+            }
         }
-
         if (Input.GetButtonDown("Cancel"))
         {
-            Menu.EnableCanvas();
+            PauseGame(!onPause);
         }
     }
 }
