@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class gameController : MonoBehaviour {
-    public playerController player;
+    public playerController Player;
+    public menuController Menu;
     public GameObject Roof;
     public GameObject Ground;
     public GameObject Platforms;
@@ -26,7 +27,7 @@ public class gameController : MonoBehaviour {
     public void ChangeGravity()
     {
         invGravity = !invGravity;
-        player.ChangeGravity();
+        Player.ChangeGravity();
         if (invGravity)
         {
             Roof.tag = "Ground";
@@ -61,6 +62,11 @@ public class gameController : MonoBehaviour {
         if (GameObject.Find("GravityCoin(Clone)") == null && timeBetweenSpawn + timeSpawnForCoin < Time.time)
         {
             SpawnCoin();
+        }
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            Menu.EnableCanvas();
         }
     }
 }
