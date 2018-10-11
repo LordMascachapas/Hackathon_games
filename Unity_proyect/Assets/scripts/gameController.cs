@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class gameController : MonoBehaviour {
     public playerController Player;
@@ -9,6 +10,7 @@ public class gameController : MonoBehaviour {
     public GameObject Ground;
     public GameObject Platforms;
     public GameObject CoinPrefab;
+    public Text Pointer;
     public float XMaxCoinSpawn;
     public float XMinCoinSpawn;
     public float YMaxCoinSpawn;
@@ -17,7 +19,19 @@ public class gameController : MonoBehaviour {
     bool invGravity;
     float timeBetweenSpawn;
     bool onPause;
+    int points;
     float timeOnPause;
+
+    public int GetPoints()
+    {
+        return points;
+    }
+
+    public void SetPoints(int value)
+    {
+        points = value;
+        Pointer.text = "Points: " + points;
+    }
 
     public void ChangeGravity()
     {
@@ -72,6 +86,8 @@ public class gameController : MonoBehaviour {
         onPause = false;
         invGravity = false;
         timeBetweenSpawn = -timeSpawnForCoin;
+        points = 3;
+        Pointer.text = "Points: " + points;
     }
 
     private void Update()
