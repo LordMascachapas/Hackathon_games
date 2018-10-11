@@ -44,15 +44,16 @@ public class gameController : MonoBehaviour {
             for (int i = 0; i < Platforms.transform.childCount; i++)
             {
                 Platforms.transform.GetChild(i).SetPositionAndRotation(Platforms.transform.GetChild(i).position, Quaternion.Euler(0, 0, 180));
-                    Platforms.transform.GetChild(i).Find("Sprites").SetPositionAndRotation(Platforms.transform.GetChild(i).Find("Sprites").position, Quaternion.Euler(0, 0, 0));
+                Platforms.transform.GetChild(i).Find("Sprites").SetPositionAndRotation(Platforms.transform.GetChild(i).Find("Sprites").position, Quaternion.Euler(0, 0, 0));
             }
         }
         else
         {
             Roof.tag = "Bouncer";
             Ground.tag = "Ground";
-            for (int i = 0; i < Platforms.transform.childCount - 1; i++)
+            for (int i = 0; i < Platforms.transform.childCount; i++)
             {
+                Debug.Log(Platforms.transform.childCount);
                 Platforms.transform.GetChild(i).SetPositionAndRotation(Platforms.transform.GetChild(i).position, Quaternion.Euler(0, 0, 0));
                 Platforms.transform.GetChild(i).Find("Sprites").SetPositionAndRotation(Platforms.transform.GetChild(i).Find("Sprites").position, Quaternion.Euler(0, 0, 0));
             }
@@ -86,7 +87,7 @@ public class gameController : MonoBehaviour {
         onPause = false;
         invGravity = false;
         timeBetweenSpawn = -timeSpawnForCoin;
-        points = 3;
+        points = 0;
         Pointer.text = "Points: " + points;
     }
 

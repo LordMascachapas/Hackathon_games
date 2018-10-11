@@ -5,7 +5,7 @@ using UnityEngine;
 public class gravityCoin : MonoBehaviour {
     public gameController gc;
 
-    private void Start()
+    private void Awake()
     {
         gc = GameObject.Find("GameController").gameObject.GetComponent<gameController>();
     }
@@ -16,6 +16,7 @@ public class gravityCoin : MonoBehaviour {
         {
             gc.ChangeGravity();
             Destroy(gameObject);
+            gc.SetPoints(gc.GetPoints() + 1);
         }
     }
 }
