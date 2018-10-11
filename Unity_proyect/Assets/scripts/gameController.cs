@@ -56,14 +56,12 @@ public class gameController : MonoBehaviour {
     {
         if (value != onPause)
         {
-            Menu.EnableCanvas(value);
-            Player.SetFreeze(value);
+            Menu.EnableMenu(value);
             if (onPause)
-                timeOnPause = Time.time;
+                Time.timeScale = 1;
             else
             {
-                timeOnPause = Time.time - timeOnPause;
-                timeBetweenSpawn += timeOnPause;
+                Time.timeScale = 0;
             }
             onPause = value;
         }

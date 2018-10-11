@@ -5,10 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class menuController : MonoBehaviour {
-    public GameObject Canvas;
+    public GameObject Menu;
 
     public void LoadScene (string scene)
     {
+        if (Time.timeScale != 1)
+            Time.timeScale = 1;
         SceneManager.LoadScene(scene);
     }
 
@@ -18,8 +20,8 @@ public class menuController : MonoBehaviour {
         Application.Quit();
     }
 
-    public void EnableCanvas(bool value)
+    public void EnableMenu(bool value)
     {
-        Canvas.SetActive(value);
+        Menu.SetActive(value);
     }
 }
